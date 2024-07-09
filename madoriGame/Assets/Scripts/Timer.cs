@@ -6,7 +6,6 @@ using UnityEngine.Events;
 
 public class Timer : MonoBehaviour
 {
-    [SerializeField]
     TextMeshProUGUI text;
     [SerializeField]
     UnityEvent time30;
@@ -15,26 +14,26 @@ public class Timer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        text.text = time.ToString();
+        text = GetComponent<TextMeshProUGUI>();
+        ChangeText();
         StartCoroutine(OneTimer());
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     IEnumerator OneTimer()
     {
         yield return new WaitForSeconds(1);
         StartCoroutine(OneTimer());
         time += 1;
-        text.text = time.ToString();
-        if(time == 30)
+        ChangeText();
+        if (time == 30)
         {
             time30.Invoke();
         }
 
+    }
+    void ChangeText()
+    {
+        text.text = time.ToString();
     }
 }
